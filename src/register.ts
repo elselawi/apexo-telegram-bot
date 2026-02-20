@@ -35,9 +35,16 @@ export async function register(ctx: BotContext, env: { BOT_TOKEN: string }) {
 		// 5. Handle the result
 		const symbol = result[0]?.symbol[0];
 		const QRCodeStringContent = symbol?.data || '';
-		let data = QRCodeStringContent.replace('https://patient.apexo.app/', '');
+		let data = QRCodeStringContent.replace('https://patient.apexo.app/', ''); // a link to patients page
+		data = data.replace('https://t.me/apexoappbot?start=S-', ''); // in case of staff member link to bot
+		data = data.replace('https://t.me/apexoappbot?start=', ''); // in case of patient link directly to the bot
+
+		await ctx.reply('QR Code String Content: ' + QRCodeStringContent);
+		await ctx.reply('Data: ' + data);
+
 		if (data.length > 0) {
 			data = decode(data);
+			await ctx.reply('Decoded Data: ' + data);
 		}
 		const [userId, name, server, lang] = data.split('|');
 
@@ -68,7 +75,7 @@ export async function register(ctx: BotContext, env: { BOT_TOKEN: string }) {
 			ctx.session.server = server;
 			ctx.session.language = lang;
 			ctx.session.currency = currency;
-			ctx.session.isStaff = !QRCodeStringContent.startsWith('https://patient.apexo.app/');
+			ctx.session.isStaff = QRCodeStringContent.startsWith('https://t.me/apexoappbot?start=S-');
 
 			// QR code is valid
 			await ctx.reply(

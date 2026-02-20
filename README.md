@@ -90,11 +90,15 @@ npm run deploy
 
 ## Usage
 
-Users can register by sending a QR code image to the bot. The QR code should contain:
-- User ID
-- Name
-- Server URL
-- Language code (en/es/ar)
+Users can register by sending a QR code image to the bot. The QR code should be a link to either apexo patients page or the telegram bot link.
+
+For example (where `ABCDEFG` is a base64 encoded string of user name, id, language, and server):
+
+- `https://patient.apexo.app/ABCDEFG` - This would register the user as a patient
+- `https://t.me/apexoappbot?start=ABCDEFG` - This would also register the user as a patient
+- `https://t.me/apexoappbot?start=S-ABCDEFG` - This would register the user as a staff member (notice the `S-`)
+
+So, when the bot is sent an image containing one of these links as a QR code, it will register the user as a patient or staff member depending on the link.
 
 ## Supported Languages
 
