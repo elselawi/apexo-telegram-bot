@@ -39,12 +39,8 @@ export async function register(ctx: BotContext, env: { BOT_TOKEN: string }) {
 		data = data.replace('https://t.me/apexoappbot?start=S-', ''); // in case of staff member link to bot
 		data = data.replace('https://t.me/apexoappbot?start=', ''); // in case of patient link directly to the bot
 
-		await ctx.reply('QR Code String Content: ' + QRCodeStringContent);
-		await ctx.reply('Data: ' + data);
-
 		if (data.length > 0) {
 			data = decode(data);
-			await ctx.reply('Decoded Data: ' + data);
 		}
 		const [userId, name, server, lang] = data.split('|');
 
