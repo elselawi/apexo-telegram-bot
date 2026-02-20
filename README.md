@@ -1,6 +1,6 @@
 # Apexo Bot
 
-A Telegram bot built with Grammy and deployed on Cloudflare Workers for managing patient and staff interactions in the Apexo app.
+A telegram bot that communicates with your installation of Apexo, to be used by patients and staff members. built with Grammy and deployed on Cloudflare Workers.
 
 ## Features
 
