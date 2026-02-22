@@ -7,6 +7,7 @@ export const patientCommands: Record<string, Command> = {
 	appointments: new Command('appointments', 'Appointments', 'Citas', 'المواعيد', async (ctx) => {
 		const url = `${ctx.session.server}/api/collections/public/records?page=1&perPage=9999&filter=pid%3D%22${ctx.session.userId}%22`;
 		const response = (await (await fetch(url)).json()) as PocketBaseAppointmentsRes;
+		response.items.sort((a, b) => a.date - b.date);
 		ctx.reply(
 			t('appointments', ctx.session.language as Language, {
 				count: response.items.length,
